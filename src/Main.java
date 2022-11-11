@@ -1,16 +1,28 @@
+import java.io.File;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
+    public static final int YEAR_FOR_REPORT = 2021;
 
     public static void main(String[] args) {
+
+        String yearPath = "resources/y." + YEAR_FOR_REPORT + ".csv";
+        int monthCountByFile = 0;                       /* счетчик количества файлов */
+        File monthsList = new File("resources");
+        for (String monthsName: monthsList.list()) {
+            if (monthsName.contains("m.")) {
+                monthCountByFile++;
+            }
+        }
+
         Scanner scanner =new Scanner(System.in);
         YearlyReport yearlyReport = new YearlyReport();
+        HashMap<Integer, MonthlyReport> monthlyReportsList = new HashMap<>();
         MonthlyReport monthlyReport;
         CompareReports compareReports = new CompareReports();
-        String yearPath = "resources/y.2021.csv";
 
-        HashMap<Integer, MonthlyReport> monthlyReportsList = new HashMap<>();
+
 
         while (true) {
             printMenu();
@@ -21,9 +33,13 @@ public class Main {
                 break;
 
             } else if (Integer.parseInt(userInput) == 1) {
-                for (int month = 1; month <= 3; month++) {
+                for (int month = 1; month <= monthCountByFile; month++) {
                     monthlyReport = new MonthlyReport(month);
-                    monthlyReport.readMonthReport("resources/m.20210" + month + ".csv");
+
+                    String str = "00" + month;                                      /* создает номер месяца из 2 цифр */
+                    String substring = str.substring(str.length() - 2);
+
+                    monthlyReport.readMonthReport("resources/m.2021" + substring + ".csv");
                     monthlyReportsList.put(month, monthlyReport);
                 }
 
