@@ -8,12 +8,12 @@ public class CompareReports {
     /**
      * метод сверяет данные годового отчета с даннымм ежемесячных отчетов
      */
-    void compareReports1(YearlyReport yearlyReport, HashMap<Integer, MonthlyReport> /*сделать отдельные методы для расхода и дохода */ monthlyReportsList) {
+    void compareReports1(YearlyReport yearlyReport, HashMap<Integer, MonthlyReport> monthlyReportsList) {
         int errorCount = 0;
         if (yearlyReport.monthsData.isEmpty() || monthlyReportsList.isEmpty()) {
             System.out.println("Для начала сверки необходимо считать все отчеты\n");
         } else {
-            for(int i = 1; i <= 3 ; i++) {
+            for(int i = 1; i <= monthlyReportsList.size() ; i++) {
                 int yearlyExpensesByMonth = yearlyReport.monthsData.get(i).expenses;
                 int monthlyExpenses = monthlyReportsList.get(i).findSumExpenses();
 

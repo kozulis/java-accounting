@@ -8,21 +8,11 @@ public class Main {
     public static void main(String[] args) {
 
         String yearPath = "resources/y." + YEAR_FOR_REPORT + ".csv";
-        int monthCountByFile = 0;                       /* счетчик количества файлов */
-        File monthsList = new File("resources");
-        for (String monthsName: monthsList.list()) {
-            if (monthsName.contains("m.")) {
-                monthCountByFile++;
-            }
-        }
-
         Scanner scanner =new Scanner(System.in);
         YearlyReport yearlyReport = new YearlyReport();
         HashMap<Integer, MonthlyReport> monthlyReportsList = new HashMap<>();
         MonthlyReport monthlyReport;
         CompareReports compareReports = new CompareReports();
-
-
 
         while (true) {
             printMenu();
@@ -32,15 +22,18 @@ public class Main {
                 System.out.println("Выход");
                 break;
 
-            } else if (Integer.parseInt(userInput) == 1) {
-                for (int month = 1; month <= monthCountByFile; month++) {
-                    monthlyReport = new MonthlyReport(month);
+            } else if (Integer.parseInt(userInput) == 1) {                       /* считывает файлы с определенным названием, в качестве номера */
+                File monthsList1 = new File("resources");                /* месяца вычленяет из файла данных цифру */
+                for (String monthsName: monthsList1.list()) {
+                    String substring = monthsName.substring(6, 8);
+                    String monthNameFull = "m." + YEAR_FOR_REPORT + substring;
+                    if (monthsName.contains(monthNameFull)) {
+                        int monthNumber = Integer.parseInt(substring);
+                        monthlyReport = new MonthlyReport(monthNumber);
 
-                    String str = "00" + month;                                      /* создает номер месяца из 2 цифр */
-                    String substring = str.substring(str.length() - 2);
-
-                    monthlyReport.readMonthReport("resources/m.2021" + substring + ".csv");
-                    monthlyReportsList.put(month, monthlyReport);
+                        monthlyReport.readMonthReport("resources/" + monthNameFull + ".csv");
+                        monthlyReportsList.put(monthNumber, monthlyReport);
+                    }
                 }
 
             } else if (Integer.parseInt(userInput) == 2) {
