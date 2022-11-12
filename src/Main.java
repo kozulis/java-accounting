@@ -39,7 +39,6 @@ public class Main {
             } else if (Integer.parseInt(userInput) == 2) {
                 yearlyReport.readYearReport(yearPath);
 
-
             } else if (Integer.parseInt(userInput) == 3) {
                 compareReports.compareReports1(yearlyReport, monthlyReportsList);
 
