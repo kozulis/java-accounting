@@ -58,13 +58,11 @@ public class YearlyReport {
      */
     void findAverageExpenses() {
         int averageExpenses = 0;
-        int monthCount = 0;
         for (Integer oneMonthData : monthsData.keySet()) {
             YearlyReportMonth value = monthsData.get(oneMonthData);
             averageExpenses += value.expenses;
-            monthCount = oneMonthData;
         }
-        System.out.println("Средний расход за все месяцы в году: " + averageExpenses/monthCount);
+        System.out.println("Средний расход за все месяцы в году: " + averageExpenses/monthsData.size());
     }
 
     /**
